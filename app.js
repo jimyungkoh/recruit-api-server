@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const companyApi = require('./api/company');
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -14,5 +16,7 @@ app.use((req, res, next) => {
     'Content-Type, Authorization');
   next();
 });
+
+app.use('/company', companyApi);
 
 app.listen(3000);
