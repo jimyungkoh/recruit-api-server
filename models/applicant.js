@@ -25,7 +25,7 @@ module.exports = function (sequelize) {
 
   /**
    * Applicant(지원자)-JobApplication(지원 내역) 관계 (1:N)
-   * */
+   */
   Applicant.associate = models => {
     Applicant.hasMany(models.JobApplication, {
       foreignKey: {

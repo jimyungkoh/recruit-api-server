@@ -31,7 +31,7 @@ module.exports = function (sequelize) {
   JobApplication.associate = models => {
     /**
      * JobApplication(지원 내역)-Opening(채용공고) 관계 (N:1)
-     * */
+     */
     JobApplication.belongsTo(models.Opening, {
         foreignKey: {
           name: 'opening_id',
@@ -46,7 +46,7 @@ module.exports = function (sequelize) {
 
     /**
      * JobApplication(지원 내역)-Applicant(지원자) 관계 (N:1)
-     * */
+     */
     JobApplication.belongsTo(models.Applicant, {
         foreignKey: {
           name: 'applicant_id',

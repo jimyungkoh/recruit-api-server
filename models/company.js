@@ -26,7 +26,7 @@ module.exports = function (sequelize) {
 
   /**
    * Company(회사)-Opening(채용공고) 관계 (1:N)
-   * */
+   */
   Company.associate = models => {
     Company.hasMany(models.Opening, {
       foreignKey: {

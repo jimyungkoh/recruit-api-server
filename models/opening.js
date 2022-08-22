@@ -52,7 +52,7 @@ module.exports = function (sequelize) {
   Opening.associate = models => {
     /**
      * 채용공고(Opening)-회사(Company) 관계 (N:1)
-     * */
+     */
     Opening.belongsTo(models.Company, {
       foreignKey: {
         name: 'company_id',
