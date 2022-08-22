@@ -18,6 +18,22 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+const companyModel = require('./company')(sequelize, Sequelize.DataTypes);
+const openingModel = require('./opening')(sequelize, Sequelize.DataTypes);
+const applicantModel = require('./applicant')(sequelize, Sequelize.DataTypes);
+const jobApplicationModel = require('./jobApplication')(sequelize, Sequelize.DataTypes);
+
+db[companyModel.name] = companyModel;
+db[openingModel.name] = openingModel;
+db[applicantModel.name] = applicantModel;
+db[jobApplicationModel.name] = jobApplicationModel;
+
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
