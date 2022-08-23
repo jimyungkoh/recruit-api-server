@@ -10,5 +10,6 @@ exports.enrollApplicant = async (info) => {
     applicant_id: info.applicant_id,
   };
 
-  await JobApplication.create(jobApplication);
+  return JobApplication.create(jobApplication);
 };
+

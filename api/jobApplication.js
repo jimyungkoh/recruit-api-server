@@ -14,7 +14,7 @@ router.post('/', async (req, res, next) => {
 
     await validateApplicantId(info.applicant_id);
 
-    await jobApplicantService.enrollApplicant(info);
+    res.status(201).json(await jobApplicantService.enrollApplicant(info));
   } catch (e) {
     next(e);
   }
