@@ -88,7 +88,7 @@ exports.search = async (value) => {
  * @param {number} id 채용공고 id
  * @returns {Object}
  */
-exports.get = async (id) => {
+exports.getById = async (id) => {
   if (isNaN(id)) {
     throw new BadRequestError(`${id} is not a number`);
   }
