@@ -68,7 +68,7 @@ router.get('/', async (req, res, next) => {
      */
     try {
       const searchWord = req.query.search;
-      
+
       res.status(200).json(await openingService.search(searchWord));
     } catch (err) {
       next(err);
@@ -81,6 +81,23 @@ router.get('/', async (req, res, next) => {
     } catch (err) {
       next(err);
     }
+  }
+});
+
+/**
+ * 요구사항 5. 채용 상세 페이지 가져오기
+ */
+router.get('/:id', async (req, res, next) => {
+  const id = req.params.id;
+
+  try {
+    await openingService.validateOpeningId(id);
+
+    const opening = await openingService.getById(id);
+
+    res.status(200).end(opening);
+  } catch (e) {
+    next(e);
   }
 });
 
