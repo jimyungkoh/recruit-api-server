@@ -1,5 +1,11 @@
 require('dotenv').config();
+
 const env = process.env;
+
+/**
+ * server port
+ * */
+const PORT = 3000;
 
 const development = {
   username: env.MYSQL_USERNAME,
@@ -28,4 +34,4 @@ const test = {
   port: env.MYSQL_PORT
 };
 
-module.exports = { development, production, test };
+module.exports = {development, production, test, PORT};

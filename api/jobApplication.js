@@ -5,9 +5,7 @@ const {validateApplicantId} = require('../service/applicantService');
 
 const router = express.Router();
 
-/**
- * 요구사항 6. 사용자가 채용공고에 지원하기
- */
+// 요구사항 6. 사용자가 채용공고에 지원하기
 router.post('/', async (req, res, next) => {
   const info = req.body;
 
