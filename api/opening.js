@@ -22,4 +22,20 @@ router.post('/',
   }
 );
 
+/**
+ * 요구사항 2. 채용공고 수정
+ */
+router.patch('/:id', async (req, res, next) => {
+  const id = req.params.id;
+  const contents = req.body;
+
+  try {
+    await openingService.validateOpeningId(id);
+
+    res.status(200).json(await openingService.updateOpening(id, contents));
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
