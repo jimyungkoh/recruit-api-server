@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const {PORT} = require('./config/config');
 const routers = require('./api');
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("./swagger_output");
+
 /**
  * express middleware들을 사용합니다.
  * @param {express.Application} app express app
@@ -32,6 +35,7 @@ function registerRouters(app) {
   app.use('/company', routers.companyApi);
   app.use('/job-application', routers.jobApplicationApi);
   app.use('/opening', routers.openingApi);
+  app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
   return app;
 }
