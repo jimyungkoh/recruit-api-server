@@ -1,11 +1,11 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.3",
   "info": {
     "version": "1.0.0",
     "title": "Recruit API",
     "description": "Recruit API for wanted pre-onboarding course"
   },
-  "host": "localhost:8080",
+  "host": "wanted-recruit-icnby.ondigitalocean.app:8080",
   "basePath": "/",
   "schemes": [
     "http"
