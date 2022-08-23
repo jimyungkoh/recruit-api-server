@@ -5,7 +5,7 @@
     "title": "Recruit API",
     "description": "Recruit API for wanted pre-onboarding course"
   },
-  "host": "localhost:3000",
+  "host": "localhost:8080",
   "basePath": "/",
   "schemes": [
     "http"

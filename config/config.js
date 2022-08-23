@@ -5,7 +5,7 @@ const env = process.env;
 /**
  * server port
  * */
-const PORT = 3000;
+const PORT = 8080;
 
 const development = {
   username: env.MYSQL_USERNAME,
