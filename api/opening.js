@@ -61,12 +61,25 @@ router.delete('/:id', async (req, res, next) => {
  * 요구사항 4. 채용공고 목록 가져오기
  */
 router.get('/', async (req, res, next) => {
-  try {
-    const result = await openingService.getAll();
+  if (req.query.search) {
+    /**
+     * 요구사항 4-2. 채용공고 검색 기능 구현
+     * - 문자만 검색 가능,
+     */
+    try {
+      const searchWord = req.query.search;
+      res.status(200).end(await openingService.search(searchWord));
+    } catch (err) {
+      next(err);
+    }
+  } else {
+    try {
+      const result = await openingService.getAll();
 
-    res.status(200).json(result);
-  } catch (err) {
-    next(err);
+      res.status(200).json(result);
+    } catch (err) {
+      next(err);
+    }
   }
 });
 
