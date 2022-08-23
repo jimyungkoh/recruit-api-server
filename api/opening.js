@@ -38,4 +38,23 @@ router.patch('/:id', async (req, res, next) => {
   }
 });
 
+/**
+ * 요구사항 3. 채용공고 삭제
+ */
+router.delete('/:id', async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    await openingService.validateOpeningId(id);
+
+    await openingService.delete(id);
+
+    res.status(200).json({
+      success: true,
+      message: `${id} was deleted successfully.`
+    });
+  } catch (e) {
+    next(e);
+  }
+});
+
 module.exports = router;
