@@ -1,5 +1,5 @@
 const {sequelize} = require('../models');
-const {NotFoundError} = require('../components/errors');
+const {NotFoundError, BadRequestError} = require('../components/errors');
 const Opening = require('../models/opening')(sequelize);
 
 /**
@@ -20,7 +20,6 @@ exports.postOpening = async (info) => {
 
   return Opening.create(opening);
 };
-
 
 /**
  * 요구사항 2. 채용공고 수정하기
