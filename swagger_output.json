@@ -11,9 +11,9 @@
     "http"
   ],
   "paths": {
-    "/": {
+    "/opening": {
       "post": {
-        "description": "",
+        "description": "요구사항 1. 채용공고를 등록합니다.",
         "parameters": [
           {
             "name": "body",
@@ -22,7 +22,25 @@
               "type": "object",
               "properties": {
                 "company_id": {
-                  "example": "any"
+                  "example": "1"
+                },
+                "country": {
+                  "example": "미국"
+                },
+                "location": {
+                  "example": "실리콘밸리"
+                },
+                "position": {
+                  "example": "백엔드 엔지니어"
+                },
+                "reward": {
+                  "example": "5000000"
+                },
+                "content": {
+                  "example": "Netflix is still hungry! Better and Better!!!!"
+                },
+                "tech_stack": {
+                  "example": "express"
                 }
               }
             }
@@ -35,11 +53,101 @@
         }
       },
       "get": {
-        "description": "",
+        "description": "요구사항 4-1. 사용자는 채용공고 목록을 확인할 수 있습니다.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/opening?search=wanted": {
+      "get": {
+        "description": "요구사항 4-2. 채용공고 검색 기능 구현(네글자 이상만 지원합니다)",
         "parameters": [
           {
-            "name": "search",
             "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/opening/{id}": {
+      "patch": {
+        "description": "채용공고를 수정합니다.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "country": {
+                  "example": "미국"
+                },
+                "location": {
+                  "example": "실리콘밸리"
+                },
+                "position": {
+                  "example": "백엔드 엔지니어"
+                },
+                "reward": {
+                  "example": "5000000"
+                },
+                "content": {
+                  "example": "Netflix is still hungry! Better and Better!!!!"
+                },
+                "tech_stack": {
+                  "example": "express"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "채용공고를 삭제합니다.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "description": "채용 상세 페이지를 가져옵니다 (해당 회사가 올린 다른 채용공고가 추가적으로 포함됩니다).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],
@@ -50,53 +158,43 @@
         }
       }
     },
-    "/{id}": {
-      "patch": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+    "/job-application": {
+      "description": "요구사항 6. 사용자는 채용공고에 지원합니다.",
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "company_id": {
+                "example": "1"
+              },
+              "country": {
+                "example": "미국"
+              },
+              "location": {
+                "example": "실리콘밸리"
+              },
+              "position": {
+                "example": "백엔드 엔지니어"
+              },
+              "reward": {
+                "example": "5000000"
+              },
+              "content": {
+                "example": "Netflix is still hungry! Better and Better!!!!"
+              },
+              "tech_stack": {
+                "example": "express"
+              }
+            }
           }
         }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
+      ],
+      "responses": {
+        "201": {
+          "description": "Created"
         }
       }
     }

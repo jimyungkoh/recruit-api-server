@@ -5,7 +5,7 @@ const {PORT} = require('./config/config');
 const routers = require('./api');
 
 const swaggerUi = require("swagger-ui-express");
-const swaggerFile = require("./swagger_output");
+const swaggerFile = require("./swagger_output.json");
 
 /**
  * express middleware들을 사용합니다.

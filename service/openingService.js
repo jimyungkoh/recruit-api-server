@@ -135,6 +135,6 @@ exports.validateOpeningId = async (opening_id) => {
   });
 
   if (!opening) {
-    throw new NotFoundError(`${opening_id} doesn't exist in company table.`);
+    throw new NotFoundError(`${opening_id} doesn't exist in opening table.`);
   }
 }
