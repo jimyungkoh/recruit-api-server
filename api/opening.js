@@ -95,7 +95,7 @@ router.get('/:id', async (req, res, next) => {
 
     const opening = await openingService.getById(id);
 
-    res.status(200).end(opening);
+    res.status(200).json(opening);
   } catch (e) {
     next(e);
   }

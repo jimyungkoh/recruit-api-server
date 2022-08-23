@@ -113,8 +113,7 @@ exports.getById = async (id) => {
   }).then(result => result.forEach(data =>
     otherOpenings.push(Object.values(data).pop()))
   );
-
-
+  
   /**
    * 채용공고에 해당 회사가 올린 다른 채용공고를
    * 포함한 채용공고 상세 페이지 생성, 반환
