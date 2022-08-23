@@ -2,7 +2,7 @@
 
 ![tech_stack](https://user-images.githubusercontent.com/30682847/186264967-64cf4c71-a56a-4b5a-b1b9-036fe02d5f21.png)
 
-# 요구사항 분석
+# 요구사항 분석과 구현 과정
 
 ## 1. 채용공고를 등록합니다.
 
