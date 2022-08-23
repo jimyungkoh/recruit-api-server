@@ -85,3 +85,18 @@ exports.getAll = async () => {
     raw: true
   });
 };
+
+/**
+ * 요구사항 4-2. 채용공고 검색 기능 구현
+ */
+exports.search = async (value) => {
+  const searchResult = await Opening.findAll({
+    raw: true,
+    where: sequelize.literal("MATCH (country, location, position, content, tech_stack) AGAINST (:value)"),
+    replacements: {
+      value: value
+    }
+  });
+
+  return JSON.stringify(searchResult);
+}
