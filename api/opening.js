@@ -57,4 +57,17 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
+/**
+ * 요구사항 4. 채용공고 목록 가져오기
+ */
+router.get('/', async (req, res, next) => {
+  try {
+    const result = await openingService.getAll();
+
+    res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
