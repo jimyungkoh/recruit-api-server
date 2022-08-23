@@ -30,7 +30,8 @@ function loader(app) {
  */
 function registerRouters(app) {
   app.use('/company', routers.companyApi);
-  app.use('/job-application', routers.jobApplication);
+  app.use('/job-application', routers.jobApplicationApi);
+  app.use('/opening', routers.openingApi);
 
   return app;
 }
