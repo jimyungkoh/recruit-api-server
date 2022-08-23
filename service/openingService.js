@@ -48,6 +48,18 @@ exports.updateOpening = async (id, contents) => {
 }
 
 /**
+ * 요구사항 3. 채용공고 삭제하기
+ * @param {number} id
+ */
+exports.delete = async (id) => {
+  const destroyResult = await Opening.destroy({where: {id: id}});
+
+  if (!destroyResult) {
+    throw NotFoundError(`${id} doesn't exist in opening table`);
+  }
+}
+
+/**
  * 채용공고 id 유효성을 검사
  * @param {number} opening_id
  */
