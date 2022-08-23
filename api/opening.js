@@ -32,7 +32,9 @@ router.patch('/:id', async (req, res, next) => {
   try {
     await openingService.validateOpeningId(id);
 
-    res.status(200).json(await openingService.updateOpening(id, contents));
+    const patchResult = await openingService.updateOpening(id, contents);
+
+    res.status(200).json(patchResult);
   } catch (err) {
     next(err);
   }
