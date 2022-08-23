@@ -1,5 +1,6 @@
 const {sequelize} = require('../models');
 const {NotFoundError, BadRequestError} = require('../components/errors');
+const {Op} = require("sequelize");
 const Opening = require('../models/opening')(sequelize);
 
 /**
@@ -74,3 +75,13 @@ exports.validateOpeningId = async (opening_id) => {
     throw new NotFoundError(`${opening_id} doesn't exist in company table.`);
   }
 }
+
+/**
+ * 요구사항 4-1. 채용공고 목록 가져오기
+ */
+exports.getAll = async () => {
+  return await Opening.findAll({
+    attributes: {exclude: ['content']},
+    raw: true
+  });
+};
