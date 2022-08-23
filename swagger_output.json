@@ -2,8 +2,8 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "title": "Recruit API",
+    "description": "Recruit API for wanted pre-onboarding course"
   },
   "host": "localhost:3000",
   "basePath": "/",
