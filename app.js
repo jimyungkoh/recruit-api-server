@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const companyApi = require('./api/company');
+const jobApplicationApi = require('./api/jobApplication');
 
 const app = express();
 
@@ -18,5 +19,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/company', companyApi);
+app.use('/job-application', jobApplicationApi);
 
 app.listen(3000);
