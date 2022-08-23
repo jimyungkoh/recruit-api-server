@@ -68,7 +68,8 @@ router.get('/', async (req, res, next) => {
      */
     try {
       const searchWord = req.query.search;
-      res.status(200).end(await openingService.search(searchWord));
+      
+      res.status(200).json(await openingService.search(searchWord));
     } catch (err) {
       next(err);
     }
