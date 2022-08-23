@@ -6,11 +6,7 @@ const Company = require('../models/company')(sequelize);
  * 등록된 모든 회사 조회 메서드
  */
 exports.getAll = async () => {
-  const companies = await Company.findAll();
-
-  companies.every(company => company instanceof Company);
-
-  return JSON.stringify(companies);
+  return await Company.findAll({raw:true});
 };
 
 

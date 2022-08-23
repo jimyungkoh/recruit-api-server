@@ -7,7 +7,9 @@ const router = express.Router();
  * 등록된 모든 회사 조회
  */
 router.get('/', async (req, res, next) => {
-  res.status(200).end(await companyService.getAll());
+  const companies = await companyService.getAll();
+
+  res.status(200).json(companies);
 });
 
 module.exports = router;
