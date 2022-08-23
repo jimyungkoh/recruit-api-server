@@ -61,22 +61,6 @@ exports.delete = async (id) => {
 }
 
 /**
- * 채용공고 id 유효성을 검사
- * @param {number} opening_id
- */
-exports.validateOpeningId = async (opening_id) => {
-  const opening = await Opening.findOne({
-    where: {
-      id: opening_id
-    }
-  });
-
-  if (!opening) {
-    throw new NotFoundError(`${opening_id} doesn't exist in company table.`);
-  }
-}
-
-/**
  * 요구사항 4-1. 채용공고 목록 가져오기
  */
 exports.getAll = async () => {
@@ -97,4 +81,61 @@ exports.search = async (value) => {
       value: value
     }
   });
+}
+
+/**
+ * 요구사항 5. 채용 상세 페이지 가져오기
+ * @param {number} id 채용공고 id
+ * @returns {Object}
+ */
+exports.get = async (id) => {
+  if (isNaN(id)) {
+    throw new BadRequestError(`${id} is not a number`);
+  }
+
+  const opening = await Opening.findOne({
+    raw: true,
+    where: {id: id}
+  });
+
+  /**
+   * 해당 회사가 올린 다른 채용공고 검색
+   */
+  let otherOpenings = []
+
+  await Opening.findAll({
+    raw: true,
+    attributes: ['id'],
+    where: {
+      id: {[Op.not]: id},
+      company_id: opening.company_id
+    }
+  }).then(result => result.forEach(data =>
+    otherOpenings.push(Object.values(data).pop()))
+  );
+
+
+  /**
+   * 채용공고에 해당 회사가 올린 다른 채용공고를
+   * 포함한 채용공고 상세 페이지 생성, 반환
+   */
+  return Object.assign(opening, {
+    'other_openings_by_same_company': otherOpenings
+  });
+};
+
+/**
+ * 채용공고 id 유효성을 검사
+ * @param {number} opening_id
+ */
+exports.validateOpeningId = async (opening_id) => {
+  const opening = await Opening.findOne({
+    where: {
+      id: opening_id
+    }
+  });
+
+  if (!opening) {
+    throw new NotFoundError(`${opening_id} doesn't exist in company table.`);
+  }
 }
