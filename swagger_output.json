@@ -25,10 +25,10 @@
                   "example": "1"
                 },
                 "country": {
-                  "example": "미국"
+                  "example": "대한민국"
                 },
                 "location": {
-                  "example": "실리콘밸리"
+                  "example": "서울"
                 },
                 "position": {
                   "example": "백엔드 엔지니어"
@@ -37,7 +37,7 @@
                   "example": "5000000"
                 },
                 "content": {
-                  "example": "Netflix is still hungry! Better and Better!!!!"
+                  "example": "Wanted is still hungry! Better and Better!!!!"
                 },
                 "tech_stack": {
                   "example": "express"
@@ -49,6 +49,9 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "404": {
+            "description": "${company_id} doesn't exist in company table."
           }
         }
       },
@@ -83,7 +86,7 @@
     },
     "/opening/{id}": {
       "patch": {
-        "description": "채용공고를 수정합니다.",
+        "description": "요구사항 2. 채용공고를 수정합니다.",
         "parameters": [
           {
             "name": "id",
@@ -122,11 +125,14 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "${opening_id} doesn't exist in opening table."
           }
         }
       },
       "delete": {
-        "description": "채용공고를 삭제합니다.",
+        "description": "요구사항 3. 채용공고를 삭제합니다.",
         "parameters": [
           {
             "name": "id",
@@ -138,11 +144,14 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "${opening_id} doesn't exist in opening table."
           }
         }
       },
       "get": {
-        "description": "채용 상세 페이지를 가져옵니다 (해당 회사가 올린 다른 채용공고가 추가적으로 포함됩니다).",
+        "description": "요구사항 5. 채용 상세 페이지를 가져옵니다 (해당 회사가 올린 다른 채용공고가 추가적으로 포함됩니다).",
         "parameters": [
           {
             "name": "id",
@@ -155,46 +164,42 @@
           "200": {
             "description": "OK"
           }
+        },
+        "404": {
+          "description": "${opening_id} doesn't exist in opening table."
         }
       }
     },
     "/job-application": {
-      "description": "요구사항 6. 사용자는 채용공고에 지원합니다.",
-      "parameters": [
-        {
-          "name": "body",
-          "in": "body",
-          "schema": {
-            "type": "object",
-            "properties": {
-              "company_id": {
-                "example": "1"
-              },
-              "country": {
-                "example": "미국"
-              },
-              "location": {
-                "example": "실리콘밸리"
-              },
-              "position": {
-                "example": "백엔드 엔지니어"
-              },
-              "reward": {
-                "example": "5000000"
-              },
-              "content": {
-                "example": "Netflix is still hungry! Better and Better!!!!"
-              },
-              "tech_stack": {
-                "example": "express"
+      "post": {
+        "description": "요구사항 6. 사용자는 채용공고에 지원합니다(1회만 가능).",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "opening_id": {
+                  "example": "2"
+                },
+                "applicant_id": {
+                  "example": "1"
+                }
               }
             }
           }
-        }
-      ],
-      "responses": {
-        "201": {
-          "description": "Created"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "해당 채용공고에는 1회만 지원 가능합니다."
+          },
+          "404": {
+            "description": "${opening_id} doesn't exist in opening table. || ${applicant_id} doesn't exist in applicant table."
+          }
         }
       }
     }
