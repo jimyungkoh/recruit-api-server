@@ -1,4 +1,3 @@
 exports.companyApi = require('./company');
-exports.jobApplication = require('./jobApplication');
-
-
+exports.jobApplicationApi = require('./jobApplication');
+exports.openingApi = require('./opening');
