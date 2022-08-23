@@ -23,6 +23,6 @@ exports.validateApplicantId = async (applicant_id) => {
   });
 
   if (!applicant) {
-    throw new NotFoundError(`${applicant_id} doesn't exist in company table.`);
+    throw new NotFoundError(`${applicant_id} doesn't exist in applicant table.`);
   }
 }
