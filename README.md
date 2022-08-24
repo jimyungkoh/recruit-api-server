@@ -1,3 +1,8 @@
+# 🐳 [Wanted Recruit Demo App](https://wanted-recruit-icnby.ondigitalocean.app/) Open! 🐳
+
+- [Wanted Recruit Demo App](https://wanted-recruit-icnby.ondigitalocean.app/) 을 클릭하면 Demo 앱에서 API 명세를 확인하고 직접 테스트해 볼 수 있습니다!
+- 커밋 로그 확인도 잊지 말아주세요! 커밋에 많은 공을 들였습니다.
+
 # 기술 스택
 
 ![tech_stack](https://user-images.githubusercontent.com/30682847/186264967-64cf4c71-a56a-4b5a-b1b9-036fe02d5f21.png)
