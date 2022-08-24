@@ -6,7 +6,7 @@ info:
   version: 1.0.0
 
 servers:
-  - url: https://wanted-recruit-icnby.ondigitalocean.app:8080
+  - url: wanted-recruit-icnby.ondigitalocean.app
 
 basePath: "/"
 
