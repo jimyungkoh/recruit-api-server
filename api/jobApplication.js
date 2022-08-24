@@ -1,5 +1,5 @@
-const jobApplicantService = require('../service/jobApplicationService');
 const express = require('express');
+const jobApplicantService = require('../service/jobApplicationService');
 const {validateOpeningId} = require('../service/openingService');
 const {validateApplicantId} = require('../service/applicantService');
 const {validateDuplication} = require('../service/jobApplicationService');
@@ -11,11 +11,11 @@ router.post('/', async (req, res, next) => {
   const info = req.body;
 
   try {
-    await validateOpeningId(info.opening_id);
-
-    await validateApplicantId(info.applicant_id);
-
-    await validateDuplication(info.opening_id, info.applicant_id);
+    await Promise.all([
+      validateOpeningId(info.opening_id),
+      validateApplicantId(info.applicant_id),
+      validateDuplication(info.opening_id, info.applicant_id)
+    ]);
 
     res.status(201).json(await jobApplicantService.enrollApplicant(info));
   } catch (e) {
