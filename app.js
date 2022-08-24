@@ -5,7 +5,9 @@ const {PORT} = require('./config/config');
 const routers = require('./api');
 
 const swaggerUi = require("swagger-ui-express");
-const swaggerFile = require("./swagger_output.json");
+
+const YAML = require('yamljs')
+const swaggerFile = YAML.load("./swagger_output.yaml");
 
 /**
  * express middleware들을 사용합니다.
@@ -35,7 +37,7 @@ function registerRouters(app) {
   app.use('/company', routers.companyApi);
   app.use('/job-application', routers.jobApplicationApi);
   app.use('/opening', routers.openingApi);
-  app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+  app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
   return app;
 }
