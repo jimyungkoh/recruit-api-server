@@ -12,7 +12,7 @@ exports.getAll = async () => {
 
 /**
  * 회사 id 유효성을 검사
- * @param {number} company_id
+ * @param {number} company_id 회사 ID
  */
 exports.validateCompanyId = async (company_id) => {
   const company = await Company.findOne({

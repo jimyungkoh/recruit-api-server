@@ -4,7 +4,9 @@ const {BadRequestError} = require('../components/errors');
 
 /**
  * 요구사항 6. 사용자가 채용공고에 지원하기
- * @param {Object} info
+ * @param {Object} info 지원 정보
+ * @param {number} info.opening_id 채용공고 ID
+ * @param {number} info.applicant_id 사용자 ID
  * @returns {Object}
  */
 exports.enrollApplicant = async (info) => {
@@ -19,8 +21,8 @@ exports.enrollApplicant = async (info) => {
 
 /**
  * 같은 채용공고에 중복으로 지원한 채용자가 있는지 확인하기
- * @param {number} opening_id
- * @param {number} applicant_id
+ * @param {number} opening_id 채용공고 ID
+ * @param {number} applicant_id 사용자 ID
  * */
 exports.validateDuplication = async (opening_id, applicant_id) => {
 

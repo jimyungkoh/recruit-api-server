@@ -5,7 +5,14 @@ const Opening = require('../models/opening')(sequelize);
 
 /**
  * 요구사항 1. 채용공고 등록하기
- * @param {Object} info
+ * @param {Object} info 채용공고 정보
+ * @param {number} info.company_id 회사 ID
+ * @param {string} info.country 국가
+ * @param {string} info.location 지역
+ * @param {string} info.position 채용 포지션
+ * @param {number} info.reward 채용 보수
+ * @param {string} info.content 채용 내용
+ * @param {string} info.tech_stack 기술 스택
  * @returns {Object}
  */
 exports.postOpening = async (info) => {
@@ -24,8 +31,8 @@ exports.postOpening = async (info) => {
 
 /**
  * 요구사항 2. 채용공고 수정하기
- * @param {number} id
- * @param {Object} contents
+ * @param {number} id 채용공고 ID
+ * @param {Object} contents 수정할 정보
  * @returns {Object}
  */
 exports.updateOpening = async (id, contents) => {
@@ -72,6 +79,8 @@ exports.getAll = async () => {
 
 /**
  * 요구사항 4-2. 채용공고 검색 기능 구현
+ * @param {string} value 검색어
+ * @returns {Object}
  */
 exports.search = async (value) => {
   return await Opening.findAll({
@@ -125,7 +134,7 @@ exports.getById = async (id) => {
 
 /**
  * 채용공고 id 유효성을 검사
- * @param {number} opening_id
+ * @param {number} opening_id 채용공고 ID
  */
 exports.validateOpeningId = async (opening_id) => {
   const opening = await Opening.findOne({
