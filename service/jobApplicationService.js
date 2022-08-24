@@ -1,5 +1,4 @@
-const {sequelize} = require('../models');
-const JobApplication = require('../models/jobApplication')(sequelize);
+const {JobApplicationModel} = require('../models');
 const {BadRequestError} = require('../components/errors');
 
 /**
@@ -16,7 +15,7 @@ exports.enrollApplicant = async (info) => {
     applicant_id: info.applicant_id,
   };
 
-  return JobApplication.create(jobApplication);
+  return JobApplicationModel.create(jobApplication);
 };
 
 /**
@@ -26,7 +25,7 @@ exports.enrollApplicant = async (info) => {
  * */
 exports.validateDuplication = async (opening_id, applicant_id) => {
 
-  const jobApplication = await JobApplication.findOne({
+  const jobApplication = await JobApplicationModel.findOne({
     raw: true,
     where:{
       opening_id: opening_id,

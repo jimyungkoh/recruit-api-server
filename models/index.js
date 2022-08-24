@@ -1,40 +1,36 @@
 'use strict';
 
 const Sequelize = require('sequelize');
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.js')[env];
-const db = {};
+const config = require('../config/config');
+const environment = 'production';
+const env_conf = config[environment];
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+const sequelize = new Sequelize(env_conf.database,
+  env_conf.username, env_conf.password, env_conf);
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
+const defineCompanyModel = require('./company');
+const defineOpeningModel = require('./opening');
+const defineApplicantModel = require('./applicant');
+const defineJobApplicationModel = require('./jobApplication');
+
+const CompanyModel = defineCompanyModel(sequelize);
+const OpeningModel = defineOpeningModel(sequelize);
+const ApplicantModel = defineApplicantModel(sequelize);
+const JobApplicationModel = defineJobApplicationModel(sequelize);
+
+Object.values(sequelize.models).forEach(model => {
+  if (model.associate) {
+    model.associate(sequelize.models);
   }
 });
 
-const companyModel = require('./company')(sequelize, Sequelize.DataTypes);
-const openingModel = require('./opening')(sequelize, Sequelize.DataTypes);
-const applicantModel = require('./applicant')(sequelize, Sequelize.DataTypes);
-const jobApplicationModel = require('./jobApplication')(sequelize, Sequelize.DataTypes);
-
-db[companyModel.name] = companyModel;
-db[openingModel.name] = openingModel;
-db[applicantModel.name] = applicantModel;
-db[jobApplicationModel.name] = jobApplicationModel;
-
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
-
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-module.exports = db;
+/**
+ * sequelize, 모델 모음
+ * */
+module.exports = {
+  sequelize,
+  CompanyModel,
+  OpeningModel,
+  ApplicantModel,
+  JobApplicationModel
+};

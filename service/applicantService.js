@@ -1,12 +1,11 @@
-const {sequelize} = require('../models');
+const {ApplicantModel} = require('../models');
 const {NotFoundError} = require('../components/errors');
-const Applicant = require('../models/applicant')(sequelize);
 
 /**
  * 등록된 모든 지원자 조회 메서드
  */
 exports.getAll = async () => {
-  const applicants = await Applicant.findAll();
+  const applicants = await ApplicantModel.findAll();
 
   return JSON.stringify(applicants);
 };
@@ -16,7 +15,7 @@ exports.getAll = async () => {
  * @param {number} applicant_id
  */
 exports.validateApplicantId = async (applicant_id) => {
-  const applicant = await Applicant.findOne({
+  const applicant = await ApplicantModel.findOne({
     where: {
       id: applicant_id
     }

@@ -1,7 +1,6 @@
-const {sequelize} = require('../models');
+const {sequelize, OpeningModel} = require('../models');
 const {NotFoundError, BadRequestError} = require('../components/errors');
 const {Op} = require("sequelize");
-const Opening = require('../models/opening')(sequelize);
 
 /**
  * 요구사항 1. 채용공고 등록하기
@@ -26,7 +25,7 @@ exports.postOpening = async (info) => {
     tech_stack: info.tech_stack
   };
 
-  return Opening.create(opening);
+  return OpeningModel.create(opening);
 };
 
 /**
@@ -40,13 +39,13 @@ exports.updateOpening = async (id, contents) => {
     throw new BadRequestError('id value cannot be \'modified\'.');
   }
 
-  await Opening.update(contents, {
+  await OpeningModel.update(contents, {
     where: {
       id: id
     }
   });
 
-  const opening = await Opening.findOne({where: {id: id}})
+  const opening = await OpeningModel.findOne({where: {id: id}})
 
   if (!opening) {
     throw new NotFoundError('채용공고를 찾을 수 없습니다.');
@@ -60,7 +59,7 @@ exports.updateOpening = async (id, contents) => {
  * @param {number} id
  */
 exports.delete = async (id) => {
-  const destroyResult = await Opening.destroy({where: {id: id}});
+  const destroyResult = await OpeningModel.destroy({where: {id: id}});
 
   if (!destroyResult) {
     throw NotFoundError(`${id} doesn't exist in opening table`);
@@ -71,7 +70,7 @@ exports.delete = async (id) => {
  * 요구사항 4-1. 채용공고 목록 가져오기
  */
 exports.getAll = async () => {
-  return await Opening.findAll({
+  return await OpeningModel.findAll({
     attributes: {exclude: ['content']},
     raw: true
   });
@@ -83,7 +82,7 @@ exports.getAll = async () => {
  * @returns {Object}
  */
 exports.search = async (value) => {
-  return await Opening.findAll({
+  return await OpeningModel.findAll({
     raw: true,
     where: sequelize.literal("MATCH (country, location, position, content, tech_stack) AGAINST (:value)"),
     replacements: {
@@ -102,7 +101,7 @@ exports.getById = async (id) => {
     throw new BadRequestError(`${id} is not a number`);
   }
 
-  const opening = await Opening.findOne({
+  const opening = await OpeningModel.findOne({
     raw: true,
     where: {id: id}
   });
@@ -112,7 +111,7 @@ exports.getById = async (id) => {
    */
   let otherOpenings = []
 
-  await Opening.findAll({
+  await OpeningModel.findAll({
     raw: true,
     attributes: ['id'],
     where: {
@@ -122,7 +121,7 @@ exports.getById = async (id) => {
   }).then(result => result.forEach(data =>
     otherOpenings.push(Object.values(data).pop()))
   );
-  
+
   /**
    * 채용공고에 해당 회사가 올린 다른 채용공고를
    * 포함한 채용공고 상세 페이지 생성, 반환
@@ -137,7 +136,7 @@ exports.getById = async (id) => {
  * @param {number} opening_id 채용공고 ID
  */
 exports.validateOpeningId = async (opening_id) => {
-  const opening = await Opening.findOne({
+  const opening = await OpeningModel.findOne({
     where: {
       id: opening_id
     }

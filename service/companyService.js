@@ -1,12 +1,11 @@
-const {sequelize} = require('../models');
+const {CompanyModel} = require("../models");
 const {NotFoundError} = require('../components/errors');
-const Company = require('../models/company')(sequelize);
 
 /**
  * 등록된 모든 회사 조회 메서드
  */
 exports.getAll = async () => {
-  return await Company.findAll({raw:true});
+  return await CompanyModel.findAll({raw:true});
 };
 
 
@@ -15,7 +14,7 @@ exports.getAll = async () => {
  * @param {number} company_id 회사 ID
  */
 exports.validateCompanyId = async (company_id) => {
-  const company = await Company.findOne({
+  const company = await CompanyModel.findOne({
     where: {
       id: company_id
     }
